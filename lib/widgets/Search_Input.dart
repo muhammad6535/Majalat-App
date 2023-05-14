@@ -1,11 +1,13 @@
-// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, file_names
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, file_names, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchInput extends StatefulWidget {
+  static String? freeText;
+
   const SearchInput({
-    super.key,
+    Key? key,
   });
 
   @override
@@ -13,8 +15,6 @@ class SearchInput extends StatefulWidget {
 }
 
 class _SearchInputState extends State<SearchInput> {
-  String? freeText;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +24,7 @@ class _SearchInputState extends State<SearchInput> {
         child: TextFormField(
           onChanged: (value) {
             setState(() {
-              freeText = value;
+              SearchInput.freeText = value;
             });
           },
           style: GoogleFonts.almarai(fontSize: 16),

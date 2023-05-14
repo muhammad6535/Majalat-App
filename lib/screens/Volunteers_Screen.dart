@@ -1,15 +1,13 @@
-// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
 import 'package:majalat_app/widgets/Custom_Button.dart';
 import 'package:majalat_app/widgets/Search_Input.dart';
-import 'package:majalat_app/widgets/Volunteer_Card.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:majalat_app/data/Volunteers_Data.dart';
 
 class VolunteersScreen extends StatefulWidget {
   const VolunteersScreen({Key? key}) : super(key: key);
-
   @override
   _VolunteersScreenState createState() => _VolunteersScreenState();
 }
