@@ -5,16 +5,18 @@ import 'package:majalat_app/widgets/Custom_Button.dart';
 import 'package:majalat_app/widgets/Search_Input.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:majalat_app/data/Volunteers_Data.dart';
+import 'package:majalat_app/widgets/Volunteer_Card.dart';
 
 class VolunteersScreen extends StatefulWidget {
   const VolunteersScreen({Key? key}) : super(key: key);
+  static List<VolunteerCard> listToShow = VolunteerData.volunteers;
+  static bool isSelected = true;
+
   @override
   _VolunteersScreenState createState() => _VolunteersScreenState();
 }
 
 class _VolunteersScreenState extends State<VolunteersScreen> {
-  bool isSelected = true;
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -33,10 +35,11 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     width: MediaQuery.of(context).size.width * 0.5,
                     text: "جميع المتطوعين",
                     icon: Icons.people_alt,
-                    isSelected: isSelected,
+                    isSelected: VolunteersScreen.isSelected,
                     onPressed: () {
                       setState(() {
-                        isSelected = true;
+                        VolunteersScreen.listToShow = VolunteerData.volunteers;
+                        VolunteersScreen.isSelected = true;
                       });
                     },
                   ),
@@ -44,10 +47,12 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     width: MediaQuery.of(context).size.width * 0.5,
                     text: "المفضلة",
                     icon: Icons.star,
-                    isSelected: !isSelected,
+                    isSelected: !VolunteersScreen.isSelected,
                     onPressed: () {
                       setState(() {
-                        isSelected = false;
+                        VolunteersScreen.listToShow = VolunteerData.favorites;
+
+                        VolunteersScreen.isSelected = false;
                       });
                     },
                   ),
@@ -64,13 +69,9 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                 height: MediaQuery.of(context).size.height * 1,
                 width: double.infinity,
                 child: ListView.builder(
-                  itemCount: isSelected
-                      ? VolunteerData.volunteers.length
-                      : VolunteerData.favorites.length,
+                  itemCount: VolunteersScreen.listToShow.length,
                   itemBuilder: (context, index) {
-                    return isSelected
-                        ? VolunteerData.volunteers[index]
-                        : VolunteerData.favorites[index];
+                    return VolunteersScreen.listToShow[index];
                   },
                 ),
               ),
