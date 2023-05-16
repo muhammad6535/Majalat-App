@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                   minimumSize:
                       Size(MediaQuery.of(context).size.width * 0.8, 50),
                   nextScreen: VolunteersScreen(),
-                )
+                ),
               ],
             ),
           ),

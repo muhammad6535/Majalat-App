@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SearchInput extends StatefulWidget {
   static String? freeText;
-
   const SearchInput({
     Key? key,
   });
