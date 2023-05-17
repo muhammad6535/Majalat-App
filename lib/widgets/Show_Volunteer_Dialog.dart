@@ -1,6 +1,9 @@
+// ignore_for_file: depend_on_referenced_packages, file_names
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:majalat_app/widgets/Dialog_Button.dart';
+import 'package:majalat_app/widgets/Contact_Button.dart';
 
 class VolunteerDialog extends StatelessWidget {
   final String name;
@@ -74,14 +77,28 @@ class VolunteerDialog extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
+              padding: const EdgeInsets.only(
+                top: 12,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [DialogButton(), DialogButton()],
+                  ContactButton(
+                      color: Colors.grey.shade300,
+                      width: MediaQuery.of(context).size.width * 0.14,
+                      height: MediaQuery.of(context).size.height * 0.12,
+                      icon: Icons.person),
+                  ContactButton(
+                    color: Colors.blue.shade400,
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    text: "أريد التواصل",
                   ),
-                  DialogButton(),
+                  ContactButton(
+                      color: Colors.white,
+                      width: MediaQuery.of(context).size.width * 0.14,
+                      height: MediaQuery.of(context).size.height * 0.12,
+                      icon: Icons.star_border),
                 ],
               ),
             ),

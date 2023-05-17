@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, depend_on_referenced_packages, file_names
 import 'package:flutter/material.dart';
 import 'package:majalat_app/screens/volunteers_Screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../widgets/elevated_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,10 +14,10 @@ class HomeScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('مجالات'),
+          title: Text('مجالات', style: GoogleFonts.almarai()),
         ),
         body: Container(
-          color: Color.fromARGB(183, 232, 235, 235),
+          color: Color.fromARGB(183, 238, 242, 242),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -29,18 +31,19 @@ class HomeScreen extends StatelessWidget {
                   height: 30,
                 ),
                 ElevatedButtonWidget(
-                    text: "تصفح المتطوعين",
-                    fontSize: 20,
-                    backgroundColor: Colors.blue.shade700,
-                    borderRadius: BorderRadius.circular(10),
-                    minimumSize:
-                        Size(MediaQuery.of(context).size.width * 0.8, 50),
-                    nextScreen: VolunteersScreen()),
+                  text: "تصفح المتطوعين",
+                  fontSize: 20,
+                  backgroundColor: Colors.blue.shade700,
+                  borderRadius: BorderRadius.circular(10),
+                  minimumSize:
+                      Size(MediaQuery.of(context).size.width * 0.8, 50),
+                  nextScreen: VolunteersScreen(),
+                ),
                 SizedBox(
                   height: 15,
                 ),
                 ElevatedButtonWidget(
-                  text: "انضمام كمتطوع ",
+                  text: "انضمام كمتطوع",
                   fontSize: 20,
                   backgroundColor: Colors.yellow.shade800,
                   borderRadius: BorderRadius.circular(10),

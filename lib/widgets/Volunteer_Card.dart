@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:majalat_app/widgets/Show_Dialog.dart';
+import 'package:majalat_app/widgets/Show_Volunteer_Dialog.dart';
 
 class VolunteerCard extends StatelessWidget {
   final String name;
