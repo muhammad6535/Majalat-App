@@ -17,6 +17,8 @@ class VolunteersScreen extends StatefulWidget {
 }
 
 class _VolunteersScreenState extends State<VolunteersScreen> {
+  String? searchQuery;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -51,7 +53,6 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     onPressed: () {
                       setState(() {
                         VolunteersScreen.listToShow = VolunteerData.favorites;
-
                         VolunteersScreen.isSelected = false;
                       });
                     },
@@ -61,7 +62,13 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
               const SizedBox(
                 height: 10,
               ),
-              const SearchInput(),
+              SearchInput(
+                onSearchQueryChanged: (query) {
+                  setState(() {
+                    searchQuery = query;
+                  });
+                },
+              ),
               const SizedBox(
                 height: 35,
               ),
@@ -69,9 +76,30 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                 height: MediaQuery.of(context).size.height * 1,
                 width: double.infinity,
                 child: ListView.builder(
-                  itemCount: VolunteersScreen.listToShow.length,
+                  itemCount: VolunteersScreen.listToShow
+                      .where((volunteer) =>
+                          searchQuery == null ||
+                          searchQuery!.isEmpty ||
+                          volunteer.name
+                              .toLowerCase()
+                              .contains(searchQuery!.toLowerCase()) ||
+                          volunteer.description
+                              .toLowerCase()
+                              .contains(searchQuery!.toLowerCase()))
+                      .length,
                   itemBuilder: (context, index) {
-                    return VolunteersScreen.listToShow[index];
+                    final filteredList = VolunteersScreen.listToShow
+                        .where((volunteer) =>
+                            searchQuery == null ||
+                            searchQuery!.isEmpty ||
+                            volunteer.name
+                                .toLowerCase()
+                                .contains(searchQuery!.toLowerCase()) ||
+                            volunteer.description
+                                .toLowerCase()
+                                .contains(searchQuery!.toLowerCase()))
+                        .toList();
+                    return filteredList[index];
                   },
                 ),
               ),
