@@ -37,7 +37,12 @@ class DataController extends GetxController {
     volunteersList.clear();
 
     for (var v in volunteers) {
-      if (v['approved'] != null && v['approved']!.toString().contains('نعم')) {
+      if (v['approved'] != null &&
+          v['approved']!.toString().contains('نعم') &&
+          v['isshow'] != null &&
+          v['isshow'].toString().contains("نعم") &&
+          v['isacceptterms'] != null &&
+          v['isacceptterms'].toString().contains("نعم")) {
         String? firstname = v['firstname'];
         String? lastname = v['lastname'];
         String? bio = v['bio'];

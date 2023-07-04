@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:majalat_app/widgets/Contact_Button.dart';
+import 'package:majalat_app/widgets/contact_dialog.dart';
 
 class VolunteerDialog extends StatelessWidget {
   final String name;
@@ -50,7 +51,7 @@ class VolunteerDialog extends StatelessWidget {
           ),
         ],
       ),
-      contentPadding: const EdgeInsets.all(25),
+      contentPadding: const EdgeInsets.all(20),
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,6 +121,14 @@ class VolunteerDialog extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: MediaQuery.of(context).size.height * 0.12,
                     text: "أريد التواصل",
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: ContactDialog()),
+                      );
+                    },
                   ),
                   ContactButton(
                       color: Colors.white,

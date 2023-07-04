@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:majalat_app/controller/data_controller.dart';
 import 'package:majalat_app/widgets/Custom_Button.dart';
@@ -96,40 +97,49 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                 height: 35,
               ),
               Obx(
-                () => SizedBox(
-                  height: MediaQuery.of(context).size.height * 1,
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 320),
-                    child: ListView.builder(
-                      itemCount: listToShow
-                          .where((volunteer) =>
-                              searchQuery == null ||
-                              searchQuery!.isEmpty ||
-                              volunteer.name
-                                  .toLowerCase()
-                                  .contains(searchQuery!.toLowerCase()) ||
-                              volunteer.description
-                                  .toLowerCase()
-                                  .contains(searchQuery!.toLowerCase()))
-                          .length,
-                      itemBuilder: (context, index) {
-                        final filteredList = listToShow
-                            .where((volunteer) =>
-                                searchQuery == null ||
-                                searchQuery!.isEmpty ||
-                                volunteer.name
-                                    .toLowerCase()
-                                    .contains(searchQuery!.toLowerCase()) ||
-                                volunteer.description
-                                    .toLowerCase()
-                                    .contains(searchQuery!.toLowerCase()))
-                            .toList();
-                        return filteredList[index];
-                      },
-                    ),
-                  ),
-                ),
+                () => listToShow.isEmpty
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        child: Center(
+                          child: SpinKitRing(
+                            color: Colors.blue,
+                            size: 100.0,
+                          ),
+                        ),
+                      )
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 1,
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 270),
+                          child: ListView.builder(
+                            itemCount: listToShow
+                                .where((volunteer) =>
+                                    searchQuery == null ||
+                                    searchQuery!.isEmpty ||
+                                    volunteer.name
+                                        .toLowerCase()
+                                        .contains(searchQuery!.toLowerCase()) ||
+                                    volunteer.description
+                                        .toLowerCase()
+                                        .contains(searchQuery!.toLowerCase()))
+                                .length,
+                            itemBuilder: (context, index) {
+                              final filteredList = listToShow
+                                  .where((volunteer) =>
+                                      searchQuery == null ||
+                                      searchQuery!.isEmpty ||
+                                      volunteer.name.toLowerCase().contains(
+                                          searchQuery!.toLowerCase()) ||
+                                      volunteer.description
+                                          .toLowerCase()
+                                          .contains(searchQuery!.toLowerCase()))
+                                  .toList();
+                              return filteredList[index];
+                            },
+                          ),
+                        ),
+                      ),
               ),
             ],
           ),

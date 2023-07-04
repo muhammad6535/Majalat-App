@@ -9,15 +9,16 @@ class ContactButton extends StatelessWidget {
   final String? text;
   final Color color;
   final IconData? icon;
+  final VoidCallback? onPressed; // Add the callback parameter
 
-  const ContactButton({
-    required this.width,
-    required this.height,
-    required this.color,
-    this.text,
-    this.icon,
-    super.key,
-  });
+  const ContactButton(
+      {required this.width,
+      required this.height,
+      required this.color,
+      this.text,
+      this.icon,
+      super.key,
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +36,7 @@ class ContactButton extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: TextButton(
-        onPressed: () {
-          print("pressed");
-        },
+        onPressed: onPressed,
         child: Center(
           child: text != null
               ? Text(
