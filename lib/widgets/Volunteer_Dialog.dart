@@ -45,7 +45,7 @@ class VolunteerDialog extends StatelessWidget {
               Text(
                 name,
                 style: GoogleFonts.almarai(
-                    fontSize: 22, fontWeight: FontWeight.bold),
+                    fontSize: 25, fontWeight: FontWeight.bold),
               ),
             ],
           ),
