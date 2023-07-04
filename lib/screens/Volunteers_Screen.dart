@@ -99,20 +99,10 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                 () => SizedBox(
                   height: MediaQuery.of(context).size.height * 1,
                   width: double.infinity,
-                  child: ListView.builder(
-                    itemCount: listToShow
-                        .where((volunteer) =>
-                            searchQuery == null ||
-                            searchQuery!.isEmpty ||
-                            volunteer.name
-                                .toLowerCase()
-                                .contains(searchQuery!.toLowerCase()) ||
-                            volunteer.description
-                                .toLowerCase()
-                                .contains(searchQuery!.toLowerCase()))
-                        .length,
-                    itemBuilder: (context, index) {
-                      final filteredList = listToShow
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 320),
+                    child: ListView.builder(
+                      itemCount: listToShow
                           .where((volunteer) =>
                               searchQuery == null ||
                               searchQuery!.isEmpty ||
@@ -122,9 +112,22 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                               volunteer.description
                                   .toLowerCase()
                                   .contains(searchQuery!.toLowerCase()))
-                          .toList();
-                      return filteredList[index];
-                    },
+                          .length,
+                      itemBuilder: (context, index) {
+                        final filteredList = listToShow
+                            .where((volunteer) =>
+                                searchQuery == null ||
+                                searchQuery!.isEmpty ||
+                                volunteer.name
+                                    .toLowerCase()
+                                    .contains(searchQuery!.toLowerCase()) ||
+                                volunteer.description
+                                    .toLowerCase()
+                                    .contains(searchQuery!.toLowerCase()))
+                            .toList();
+                        return filteredList[index];
+                      },
+                    ),
                   ),
                 ),
               ),
