@@ -50,6 +50,7 @@ class DataController extends GetxController {
         String? town = v['town'];
         String? institute = v['institute'];
         String photoId = "";
+        String profileLink = "";
         if (firstname != null &&
             lastname != null &&
             bio != null &&
@@ -59,6 +60,9 @@ class DataController extends GetxController {
           if (v['photourl'] != null) {
             photoId = v['photourl'].toString().split("=").last;
           }
+          if (v['profilelink'] != null) {
+            profileLink = v['profilelink'];
+          }
           VolunteerCard vc = VolunteerCard(
             name: '$firstname $lastname',
             description: "$field - $institute",
@@ -67,6 +71,7 @@ class DataController extends GetxController {
             city: town,
             universityName: institute,
             photoId: photoId,
+            profileLink: profileLink,
           );
           volunteersList.add(vc);
         }

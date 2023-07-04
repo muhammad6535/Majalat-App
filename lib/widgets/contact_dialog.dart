@@ -103,15 +103,13 @@ class _ContactDialogState extends State<ContactDialog> {
                 height:
                     showInformation ? 135 : 0, // Set height to 0 when hidden
                 width: MediaQuery.of(context).size.width * 0.91,
-                child: Container(
-                  child: Text(
-                      "طاقم ومتطوّعو مجالات هم هنا لمساعدتك. نرجو منك احترام وقتهم وعدم التواصل معهم لأجل أسئلة يمكن العثور على اجاباتها بسهولة عبر بحث بسيط في الانترنت (مثل معدّلات القبول مثلا).",
-                      style: GoogleFonts.almarai(
-                          height: 1.3,
-                          letterSpacing: 0.5,
-                          color: Colors.grey.shade800,
-                          fontSize: 16)),
-                )),
+                child: Text(
+                    "طاقم ومتطوّعو مجالات هم هنا لمساعدتك. نرجو منك احترام وقتهم وعدم التواصل معهم لأجل أسئلة يمكن العثور على اجاباتها بسهولة عبر بحث بسيط في الانترنت (مثل معدّلات القبول مثلا).",
+                    style: GoogleFonts.almarai(
+                        height: 1.3,
+                        letterSpacing: 0.5,
+                        color: Colors.grey.shade800,
+                        fontSize: 16))),
             ElevatedButton(
               onPressed: () {},
               child: Row(
