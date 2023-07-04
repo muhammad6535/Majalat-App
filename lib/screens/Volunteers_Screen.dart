@@ -1,15 +1,14 @@
-// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, file_names
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:majalat_app/controller/data_controller.dart';
 import 'package:majalat_app/widgets/Custom_Button.dart';
 import 'package:majalat_app/widgets/Search_Input.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:majalat_app/data/Volunteers_Data.dart';
-import 'package:majalat_app/widgets/Volunteer_Card.dart';
 
 class VolunteersScreen extends StatefulWidget {
   const VolunteersScreen({Key? key}) : super(key: key);
-  static List<VolunteerCard> listToShow = VolunteerData.volunteers;
   static bool isSelected = true;
 
   @override
@@ -18,9 +17,12 @@ class VolunteersScreen extends StatefulWidget {
 
 class _VolunteersScreenState extends State<VolunteersScreen> {
   String? searchQuery;
-
+  int count = 0;
   @override
   Widget build(BuildContext context) {
+    DataController dataController = Get.put(DataController());
+
+    List listToShow = dataController.volunteersList;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -40,7 +42,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     isSelected: VolunteersScreen.isSelected,
                     onPressed: () {
                       setState(() {
-                        VolunteersScreen.listToShow = VolunteerData.volunteers;
+                        // VolunteersScreen.listToShow = dataController.volunteers;
                         VolunteersScreen.isSelected = true;
                       });
                     },
@@ -52,7 +54,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     isSelected: !VolunteersScreen.isSelected,
                     onPressed: () {
                       setState(() {
-                        VolunteersScreen.listToShow = VolunteerData.favorites;
+                        // VolunteersScreen.listToShow = VolunteerData.favorites;
                         VolunteersScreen.isSelected = false;
                       });
                     },
@@ -66,29 +68,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                 onSearchQueryChanged: (query) {
                   setState(() {
                     searchQuery = query;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 1,
-                width: double.infinity,
-                child: ListView.builder(
-                  itemCount: VolunteersScreen.listToShow
-                      .where((volunteer) =>
-                          searchQuery == null ||
-                          searchQuery!.isEmpty ||
-                          volunteer.name
-                              .toLowerCase()
-                              .contains(searchQuery!.toLowerCase()) ||
-                          volunteer.description
-                              .toLowerCase()
-                              .contains(searchQuery!.toLowerCase()))
-                      .length,
-                  itemBuilder: (context, index) {
-                    final filteredList = VolunteersScreen.listToShow
+                    count = listToShow
                         .where((volunteer) =>
                             searchQuery == null ||
                             searchQuery!.isEmpty ||
@@ -98,9 +78,54 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                             volunteer.description
                                 .toLowerCase()
                                 .contains(searchQuery!.toLowerCase()))
-                        .toList();
-                    return filteredList[index];
-                  },
+                        .length;
+                  });
+                },
+              ),
+              Visibility(
+                visible:
+                    searchQuery == null || searchQuery!.isEmpty ? false : true,
+                child: Container(
+                  padding: EdgeInsets.only(top: 30),
+                  child: Text("عدد نتائج البحث:  $count",
+                      style: GoogleFonts.almarai(
+                          fontSize: 18, color: Colors.grey[700])),
+                ),
+              ),
+              const SizedBox(
+                height: 35,
+              ),
+              Obx(
+                () => SizedBox(
+                  height: MediaQuery.of(context).size.height * 1,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    itemCount: listToShow
+                        .where((volunteer) =>
+                            searchQuery == null ||
+                            searchQuery!.isEmpty ||
+                            volunteer.name
+                                .toLowerCase()
+                                .contains(searchQuery!.toLowerCase()) ||
+                            volunteer.description
+                                .toLowerCase()
+                                .contains(searchQuery!.toLowerCase()))
+                        .length,
+                    itemBuilder: (context, index) {
+                      final filteredList = listToShow
+                          .where((volunteer) =>
+                              searchQuery == null ||
+                              searchQuery!.isEmpty ||
+                              volunteer.name
+                                  .toLowerCase()
+                                  .contains(searchQuery!.toLowerCase()) ||
+                              volunteer.description
+                                  .toLowerCase()
+                                  .contains(searchQuery!.toLowerCase()))
+                          .toList();
+                      return filteredList[index];
+                    },
+                  ),
                 ),
               ),
             ],

@@ -11,6 +11,7 @@ class VolunteerCard extends StatelessWidget {
   final String universityName;
   final String city;
   final String summary;
+  final String photoId;
 
   const VolunteerCard(
       {Key? key,
@@ -19,7 +20,8 @@ class VolunteerCard extends StatelessWidget {
       required this.majodOfStudy,
       required this.summary,
       required this.city,
-      required this.universityName})
+      required this.universityName,
+      this.photoId = ""})
       : super(key: key);
 
   void _showDialog(BuildContext context) {
@@ -33,6 +35,7 @@ class VolunteerCard extends StatelessWidget {
             summary: summary,
             city: city,
             universityName: universityName,
+            photoId: photoId,
           )),
     );
   }
@@ -47,7 +50,6 @@ class VolunteerCard extends StatelessWidget {
         padding: const EdgeInsets.only(top: 5, right: 17, left: 17, bottom: 10),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.9,
-          height: 96,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -69,9 +71,12 @@ class VolunteerCard extends StatelessWidget {
                     style:
                         GoogleFonts.almarai(fontSize: 20, color: Colors.black),
                   ),
-                  Text(
-                    description,
-                    style: GoogleFonts.almarai(color: Colors.grey[600]),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 15),
+                    child: Text(
+                      description,
+                      style: GoogleFonts.almarai(color: Colors.grey[700]),
+                    ),
                   ),
                 ]),
           ),

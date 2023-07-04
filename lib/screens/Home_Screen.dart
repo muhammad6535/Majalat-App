@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/elevated_button.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,7 @@ class HomeScreen extends StatelessWidget {
                   height: 30,
                 ),
                 ElevatedButtonWidget(
+                  id: 1,
                   text: "تصفح المتطوعين",
                   fontSize: 20,
                   backgroundColor: Colors.blue.shade700,
@@ -43,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                   height: 15,
                 ),
                 ElevatedButtonWidget(
+                  id: 2,
                   text: "انضمام كمتطوع",
                   fontSize: 20,
                   backgroundColor: Colors.yellow.shade800,

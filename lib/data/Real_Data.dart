@@ -1,7 +1,5 @@
 // ignore_for_file: file_names
 
-import '../widgets/Volunteer_Card.dart';
-
 class VolunteerData {
   static List<Object> volunteers = [
     {

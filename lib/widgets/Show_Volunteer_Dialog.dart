@@ -1,8 +1,7 @@
-// ignore_for_file: depend_on_referenced_packages, file_names
+// ignore_for_file: depend_on_referenced_packages, file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:majalat_app/widgets/Dialog_Button.dart';
 import 'package:majalat_app/widgets/Contact_Button.dart';
 
 class VolunteerDialog extends StatelessWidget {
@@ -11,22 +10,45 @@ class VolunteerDialog extends StatelessWidget {
   final String majorOfStudy;
   final String city;
   final String summary;
+  final String photoId;
 
-  const VolunteerDialog({
-    super.key,
-    required this.name,
-    required this.universityName,
-    required this.majorOfStudy,
-    required this.city,
-    required this.summary,
-  });
+  const VolunteerDialog(
+      {super.key,
+      required this.name,
+      required this.universityName,
+      required this.majorOfStudy,
+      required this.city,
+      required this.summary,
+      this.photoId = ""});
 
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text(
-        name,
-        style: GoogleFonts.almarai(fontSize: 22, fontWeight: FontWeight.bold),
+      title: Column(
+        children: [
+          Visibility(
+            visible: photoId == "" ? false : true,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 17, top: 8),
+              child: CircleAvatar(
+                radius: 65.0,
+                backgroundColor: Colors.grey.shade400,
+                backgroundImage: NetworkImage(
+                    'https://drive.google.com/uc?export=view&id=$photoId'),
+              ),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: GoogleFonts.almarai(
+                    fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ],
       ),
       contentPadding: const EdgeInsets.all(25),
       children: [
@@ -43,7 +65,10 @@ class VolunteerDialog extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: Text(
                     "$universityName - $majorOfStudy",
-                    style: GoogleFonts.almarai(color: Colors.grey[700]),
+                    style: GoogleFonts.almarai(
+                        color: Colors.grey[700],
+                        letterSpacing: 0.5,
+                        height: 1.1),
                   ),
                 ),
               ],
@@ -61,7 +86,10 @@ class VolunteerDialog extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: Text(
                     city,
-                    style: GoogleFonts.almarai(color: Colors.grey[700]),
+                    style: GoogleFonts.almarai(
+                        color: Colors.grey[700],
+                        letterSpacing: 0.5,
+                        height: 1.4),
                   ),
                 ),
               ],
@@ -73,13 +101,12 @@ class VolunteerDialog extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.8,
               child: Text(
                 summary,
-                style: GoogleFonts.almarai(color: Colors.grey[700]),
+                style: GoogleFonts.almarai(
+                    color: Colors.grey[700], letterSpacing: 0.5, height: 1.4),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: 12,
-              ),
+              padding: const EdgeInsets.only(top: 26, bottom: 23),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

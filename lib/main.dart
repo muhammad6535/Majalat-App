@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:majalat_app/screens/Home_Screen.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Majalaat App',
       theme: ThemeData(
           primarySwatch: Colors.blue,
