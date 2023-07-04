@@ -13,6 +13,7 @@ class VolunteerCard extends StatelessWidget {
   final String summary;
   final String photoId;
   final String profileLink;
+  final String howToContact;
 
   const VolunteerCard(
       {Key? key,
@@ -23,7 +24,8 @@ class VolunteerCard extends StatelessWidget {
       required this.city,
       required this.universityName,
       this.photoId = "",
-      this.profileLink = ""})
+      this.profileLink = "",
+      this.howToContact = ""})
       : super(key: key);
 
   void _showDialog(BuildContext context) {
@@ -32,14 +34,14 @@ class VolunteerCard extends StatelessWidget {
       builder: (context) => Directionality(
           textDirection: TextDirection.rtl,
           child: VolunteerDialog(
-            name: name,
-            majorOfStudy: majodOfStudy,
-            summary: summary,
-            city: city,
-            universityName: universityName,
-            photoId: photoId,
-            profileLink: profileLink,
-          )),
+              name: name,
+              majorOfStudy: majodOfStudy,
+              summary: summary,
+              city: city,
+              universityName: universityName,
+              photoId: photoId,
+              profileLink: profileLink,
+              howToContact: howToContact)),
     );
   }
 

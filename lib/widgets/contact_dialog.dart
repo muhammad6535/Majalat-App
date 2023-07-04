@@ -1,10 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ContactDialog extends StatefulWidget {
-  const ContactDialog({Key? key}) : super(key: key);
+  final String name;
+  final String howToContact;
+  const ContactDialog(
+      {required this.name, required this.howToContact, Key? key})
+      : super(key: key);
 
   @override
   _ContactDialogState createState() => _ContactDialogState();
@@ -110,32 +115,46 @@ class _ContactDialogState extends State<ContactDialog> {
                         letterSpacing: 0.5,
                         color: Colors.grey.shade800,
                         fontSize: 16))),
-            ElevatedButton(
-              onPressed: () {},
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.email,
-                    color: Colors.grey.shade600,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "بريد الكتروني",
-                    style: GoogleFonts.almarai(color: Colors.grey.shade800),
-                  ),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xffffc107),
-              ),
-            ),
+            buildElevatedButton()
           ],
         )
       ],
+    );
+  }
+
+  Widget buildElevatedButton() {
+    bool isWhatsApp = widget.howToContact.contains("الوتسأب");
+    String firstName = widget.name.split(" ").first;
+    return SizedBox(
+      height: 50,
+      child: ElevatedButton(
+        onPressed: () {},
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              isWhatsApp ? FontAwesomeIcons.whatsapp : Icons.email,
+              color: isWhatsApp ? Colors.white : Colors.grey.shade600,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              isWhatsApp
+                  ? "رسالة وتسأب ل$firstName "
+                  : "بريد الكتروني ل$firstName",
+              style: GoogleFonts.almarai(
+                  color: isWhatsApp ? Colors.white : Colors.grey.shade800),
+            ),
+          ],
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isWhatsApp
+              ? Color.fromARGB(255, 37, 211, 102)
+              : Color(0xffffc107),
+        ),
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:majalat_app/widgets/Contact_Button.dart';
 import 'package:majalat_app/widgets/contact_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VolunteerDialog extends StatefulWidget {
   final String name;
@@ -14,6 +15,7 @@ class VolunteerDialog extends StatefulWidget {
   final String summary;
   final String photoId;
   final String profileLink;
+  final String howToContact;
 
   const VolunteerDialog(
       {super.key,
@@ -23,7 +25,8 @@ class VolunteerDialog extends StatefulWidget {
       required this.city,
       required this.summary,
       this.photoId = "",
-      this.profileLink = ""});
+      this.profileLink = "",
+      required this.howToContact});
 
   @override
   State<VolunteerDialog> createState() => _VolunteerDialogState();
@@ -133,6 +136,15 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
                     height: MediaQuery.of(context).size.height * 0.12,
                     icon: icon,
                     profileLink: widget.profileLink,
+                    onPressed: icon == Icons.person
+                        ? () {}
+                        : () async {
+                            if (!await launchUrl(Uri.parse(widget.profileLink),
+                                mode: LaunchMode.externalApplication)) {
+                              throw Exception(
+                                  'Could not launch $widget.profileLink');
+                            }
+                          },
                   ),
                   ContactButton(
                     color: Colors.blue.shade400,
@@ -144,7 +156,10 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
                         context: context,
                         builder: (context) => Directionality(
                             textDirection: TextDirection.rtl,
-                            child: ContactDialog()),
+                            child: ContactDialog(
+                              name: widget.name,
+                              howToContact: widget.howToContact,
+                            )),
                       );
                     },
                   ),

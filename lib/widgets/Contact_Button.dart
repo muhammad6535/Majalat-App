@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ContactButton extends StatelessWidget {
   final double width;
@@ -39,14 +38,7 @@ class ContactButton extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: TextButton(
-        onPressed: icon == Icons.person
-            ? () {}
-            : () async {
-                if (!await launchUrl(Uri.parse(profileLink),
-                    mode: LaunchMode.externalApplication)) {
-                  throw Exception('Could not launch $profileLink');
-                }
-              },
+        onPressed: onPressed,
         child: Center(
           child: text != null
               ? Text(

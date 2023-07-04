@@ -26,10 +26,10 @@ class DataController extends GetxController {
         }
         processVolunteers();
       } else {
-        print('Error: ${response.statusCode}');
+        Exception('Error: ${response.statusCode}');
       }
     } catch (e) {
-      print('Exception: $e');
+      Exception('Exception: $e');
     }
   }
 
@@ -51,6 +51,7 @@ class DataController extends GetxController {
         String? institute = v['institute'];
         String photoId = "";
         String profileLink = "";
+        String howToContact = "";
         if (firstname != null &&
             lastname != null &&
             bio != null &&
@@ -63,6 +64,10 @@ class DataController extends GetxController {
           if (v['profilelink'] != null) {
             profileLink = v['profilelink'];
           }
+          if (v['howtocontact'] != null) {
+            howToContact = v['howtocontact'];
+          }
+
           VolunteerCard vc = VolunteerCard(
             name: '$firstname $lastname',
             description: "$field - $institute",
@@ -72,6 +77,7 @@ class DataController extends GetxController {
             universityName: institute,
             photoId: photoId,
             profileLink: profileLink,
+            howToContact: howToContact,
           );
           volunteersList.add(vc);
         }
