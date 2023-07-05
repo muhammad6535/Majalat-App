@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:majalat_app/screens/Home_Screen.dart';
+import 'package:majalat_app/screens/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: Colors.grey[200]),
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }
