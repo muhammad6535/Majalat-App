@@ -1,4 +1,4 @@
-## majalat_app
+## Majalat App
 
 The Majalat App is a mobile application developed to complement the Majalat website and serve the purpose of volunteering. It aims to create a platform for individuals in our Arab community who are seeking guidance in choosing the right field of study or academic institution that aligns with their interests, ambitions, abilities, and circumstances.
 
