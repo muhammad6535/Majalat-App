@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, depend_on_referenced_packages, file_names
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, depend_on_referenced_packages, file_names, unused_local_variable
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:majalat_app/screens/volunteers_Screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controller/favorites_controller.dart';
 import '../widgets/elevated_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,6 +12,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FavoritesController favoritesController = Get.put(FavoritesController());
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

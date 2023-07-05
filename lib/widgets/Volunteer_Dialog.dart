@@ -133,6 +133,7 @@ class VolunteerDialog extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.14,
                     height: MediaQuery.of(context).size.height * 0.12,
                     icon: icon,
+                    phone: phoneNumber,
                     profileLink: profileLink,
                     onPressed: icon == Icons.person
                         ? () {}
@@ -148,6 +149,7 @@ class VolunteerDialog extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: MediaQuery.of(context).size.height * 0.12,
                     text: "أريد التواصل",
+                    phone: phoneNumber,
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -167,6 +169,7 @@ class VolunteerDialog extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.14,
                     height: MediaQuery.of(context).size.height * 0.12,
                     icon: Icons.star_border,
+                    phone: phoneNumber,
                     onPressed: () {},
                   ),
                 ],

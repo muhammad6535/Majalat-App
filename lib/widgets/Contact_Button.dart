@@ -1,7 +1,10 @@
-// ignore_for_file: depend_on_referenced_packages, file_names, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../controller/favorites_controller.dart';
 
 class ContactButton extends StatefulWidget {
   final double width;
@@ -11,27 +14,31 @@ class ContactButton extends StatefulWidget {
   final IconData? icon;
   final VoidCallback? onPressed;
   final String profileLink;
+  final String phone;
 
-  const ContactButton(
-      {required this.width,
-      required this.height,
-      required this.color,
-      this.text,
-      this.icon,
-      super.key,
-      this.onPressed,
-      this.profileLink = ""});
+  const ContactButton({
+    required this.width,
+    required this.height,
+    required this.color,
+    this.text,
+    this.icon,
+    super.key,
+    this.onPressed,
+    this.profileLink = "",
+    required this.phone,
+  });
 
   @override
   State<ContactButton> createState() => _ContactButtonState();
 }
 
 class _ContactButtonState extends State<ContactButton> {
-  bool isStarPressed = false;
-  Color starColor = Colors.white;
+  FavoritesController favoritesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    bool isFavorite = favoritesController.favList.contains(widget.phone);
+
     return Container(
       width: widget.width,
       height: widget.height,
@@ -42,8 +49,9 @@ class _ContactButtonState extends State<ContactButton> {
             blurRadius: 2,
           ),
         ],
-        color: isStarPressed && widget.icon == Icons.star_border
-            ? starColor
+        color: isFavorite &&
+                (widget.icon == Icons.star_border || widget.icon == Icons.star)
+            ? Color(0xffffc107)
             : widget.color,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
@@ -60,11 +68,13 @@ class _ContactButtonState extends State<ContactButton> {
                   ),
                 )
               : Icon(
-                  isStarPressed ? Icons.star : widget.icon,
+                  isFavorite &&
+                          (widget.icon == Icons.star_border ||
+                              widget.icon == Icons.star)
+                      ? Icons.star
+                      : widget.icon,
                   color: widget.icon == Icons.star_border
-                      ? isStarPressed
-                          ? Colors.white
-                          : Colors.grey
+                      ? Colors.grey
                       : Colors.blue,
                   size: 30,
                 ),
@@ -74,9 +84,14 @@ class _ContactButtonState extends State<ContactButton> {
   }
 
   void onStarPressed() {
+    bool isFavorite = favoritesController.favList.contains(widget.phone);
+
     setState(() {
-      isStarPressed = !isStarPressed;
-      starColor = isStarPressed ? Color(0xffffc107) : Colors.white;
+      if (isFavorite) {
+        favoritesController.removeFromFavorite(widget.phone);
+      } else {
+        favoritesController.addToFavorite(widget.phone);
+      }
     });
   }
 }
