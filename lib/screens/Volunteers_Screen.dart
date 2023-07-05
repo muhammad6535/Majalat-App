@@ -111,52 +111,73 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
               const SizedBox(
                 height: 35,
               ),
-              Obx(
-                () => listToShow.isEmpty
-                    ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.6,
-                        child: Center(
-                          child: SpinKitRing(
-                            color: Colors.blue,
-                            size: 100.0,
-                          ),
-                        ),
-                      )
-                    : SizedBox(
-                        height: MediaQuery.of(context).size.height * 1,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          itemCount: listToShow
-                              .where((volunteer) =>
-                                  searchQuery == null ||
-                                  searchQuery!.isEmpty ||
-                                  volunteer.name
-                                      .toLowerCase()
-                                      .contains(searchQuery!.toLowerCase()) ||
-                                  volunteer.description
-                                      .toLowerCase()
-                                      .contains(searchQuery!.toLowerCase()))
-                              .length,
-                          itemBuilder: (context, index) {
-                            final filteredList = listToShow
-                                .where((volunteer) =>
-                                    searchQuery == null ||
-                                    searchQuery!.isEmpty ||
-                                    volunteer.name
-                                        .toLowerCase()
-                                        .contains(searchQuery!.toLowerCase()) ||
-                                    volunteer.description
-                                        .toLowerCase()
-                                        .contains(searchQuery!.toLowerCase()))
-                                .toList();
-                            return filteredList[index];
-                          },
-                        ),
-                      ),
-              ),
+              Obx(() =>
+                  listToShow.isEmpty && VolunteersScreen.isSelected == true
+                      ? showEmptyListMessage()
+                      : listToShow.isEmpty
+                          ? showLoadingIcon()
+                          : showVolunteersList(listToShow.obs)),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget showLoadingIcon() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: Center(
+        child: Text(
+          "لا يوجد متطوعين",
+          style: GoogleFonts.almarai(fontSize: 32, color: Colors.grey.shade500),
+        ),
+      ),
+    );
+  }
+
+  Widget showEmptyListMessage() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: Center(
+        child: SpinKitRing(
+          color: Colors.blue,
+          size: 100.0,
+        ),
+      ),
+    );
+  }
+
+  Widget showVolunteersList(var listToShow) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 1,
+      width: double.infinity,
+      child: ListView.builder(
+        itemCount: listToShow
+            .where((volunteer) =>
+                searchQuery == null ||
+                searchQuery!.isEmpty ||
+                volunteer.name
+                    .toLowerCase()
+                    .contains(searchQuery!.toLowerCase()) ||
+                volunteer.description
+                    .toLowerCase()
+                    .contains(searchQuery!.toLowerCase()))
+            .length,
+        itemBuilder: (context, index) {
+          final filteredList = listToShow
+              .where((volunteer) =>
+                  searchQuery == null ||
+                  searchQuery!.isEmpty ||
+                  volunteer.name
+                      .toLowerCase()
+                      .contains(searchQuery!.toLowerCase()) ||
+                  volunteer.description
+                      .toLowerCase()
+                      .contains(searchQuery!.toLowerCase()))
+              .toList();
+          return filteredList[index];
+        },
       ),
     );
   }
