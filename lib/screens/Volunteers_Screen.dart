@@ -1,9 +1,9 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, file_names, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:majalat_app/controller/data_controller.dart';
+import 'package:majalat_app/controller/favorites_controller.dart';
 import 'package:majalat_app/widgets/Custom_Button.dart';
 import 'package:majalat_app/widgets/Search_Input.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,11 +19,24 @@ class VolunteersScreen extends StatefulWidget {
 class _VolunteersScreenState extends State<VolunteersScreen> {
   String? searchQuery;
   int count = 0;
+
   @override
   Widget build(BuildContext context) {
     DataController dataController = Get.put(DataController());
+    FavoritesController favoritesController = Get.find();
+    List volunteersList = dataController.volunteersList;
 
-    List listToShow = dataController.volunteersList;
+    List listToShow = [].obs;
+
+    if (VolunteersScreen.isSelected) {
+      listToShow = volunteersList;
+    } else {
+      listToShow = volunteersList
+          .where((volunteer) =>
+              favoritesController.favList.contains(volunteer.phoneNumber))
+          .toList();
+    }
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -43,7 +56,6 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     isSelected: VolunteersScreen.isSelected,
                     onPressed: () {
                       setState(() {
-                        // VolunteersScreen.listToShow = dataController.volunteers;
                         VolunteersScreen.isSelected = true;
                       });
                     },
@@ -55,7 +67,6 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     isSelected: !VolunteersScreen.isSelected,
                     onPressed: () {
                       setState(() {
-                        // VolunteersScreen.listToShow = VolunteerData.favorites;
                         VolunteersScreen.isSelected = false;
                       });
                     },
@@ -88,9 +99,13 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     searchQuery == null || searchQuery!.isEmpty ? false : true,
                 child: Container(
                   padding: EdgeInsets.only(top: 30),
-                  child: Text("عدد نتائج البحث:  $count",
-                      style: GoogleFonts.almarai(
-                          fontSize: 18, color: Colors.grey[700])),
+                  child: Text(
+                    "عدد نتائج البحث:  $count",
+                    style: GoogleFonts.almarai(
+                      fontSize: 18,
+                      color: Colors.grey[700],
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -110,10 +125,20 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     : SizedBox(
                         height: MediaQuery.of(context).size.height * 1,
                         width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 270),
-                          child: ListView.builder(
-                            itemCount: listToShow
+                        child: ListView.builder(
+                          itemCount: listToShow
+                              .where((volunteer) =>
+                                  searchQuery == null ||
+                                  searchQuery!.isEmpty ||
+                                  volunteer.name
+                                      .toLowerCase()
+                                      .contains(searchQuery!.toLowerCase()) ||
+                                  volunteer.description
+                                      .toLowerCase()
+                                      .contains(searchQuery!.toLowerCase()))
+                              .length,
+                          itemBuilder: (context, index) {
+                            final filteredList = listToShow
                                 .where((volunteer) =>
                                     searchQuery == null ||
                                     searchQuery!.isEmpty ||
@@ -123,21 +148,9 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                                     volunteer.description
                                         .toLowerCase()
                                         .contains(searchQuery!.toLowerCase()))
-                                .length,
-                            itemBuilder: (context, index) {
-                              final filteredList = listToShow
-                                  .where((volunteer) =>
-                                      searchQuery == null ||
-                                      searchQuery!.isEmpty ||
-                                      volunteer.name.toLowerCase().contains(
-                                          searchQuery!.toLowerCase()) ||
-                                      volunteer.description
-                                          .toLowerCase()
-                                          .contains(searchQuery!.toLowerCase()))
-                                  .toList();
-                              return filteredList[index];
-                            },
-                          ),
+                                .toList();
+                            return filteredList[index];
+                          },
                         ),
                       ),
               ),

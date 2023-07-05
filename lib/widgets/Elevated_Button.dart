@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final Uri _url = Uri.parse(
@@ -50,7 +51,7 @@ class ElevatedButtonWidget extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(fontSize: fontSize),
+        style: GoogleFonts.almarai(fontSize: fontSize),
       ),
     );
   }
