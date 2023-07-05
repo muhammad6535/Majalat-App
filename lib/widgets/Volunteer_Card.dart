@@ -15,6 +15,7 @@ class VolunteerCard extends StatelessWidget {
   final String profileLink;
   final String howToContact;
   final String phoneNumber;
+  final String email;
 
   const VolunteerCard(
       {Key? key,
@@ -27,7 +28,8 @@ class VolunteerCard extends StatelessWidget {
       this.photoId = "",
       this.profileLink = "",
       this.howToContact = "",
-      required this.phoneNumber})
+      required this.phoneNumber,
+      required this.email})
       : super(key: key);
 
   void _showDialog(BuildContext context) {
@@ -45,6 +47,7 @@ class VolunteerCard extends StatelessWidget {
             profileLink: profileLink,
             howToContact: howToContact,
             phoneNumber: phoneNumber,
+            email: email,
           )),
     );
   }

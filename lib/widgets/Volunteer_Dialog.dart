@@ -17,6 +17,7 @@ class VolunteerDialog extends StatelessWidget {
   final String profileLink;
   final String howToContact;
   final String phoneNumber;
+  final String email;
 
   const VolunteerDialog(
       {super.key,
@@ -28,7 +29,8 @@ class VolunteerDialog extends StatelessWidget {
       this.photoId = "",
       this.profileLink = "",
       required this.howToContact,
-      required this.phoneNumber});
+      required this.phoneNumber,
+      required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +157,7 @@ class VolunteerDialog extends StatelessWidget {
                               name: name,
                               howToContact: howToContact,
                               phoneNumber: phoneNumber,
+                              volEmail: email,
                             )),
                       );
                     },

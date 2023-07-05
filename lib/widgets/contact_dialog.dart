@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,10 +10,12 @@ class ContactDialog extends StatefulWidget {
   final String name;
   final String howToContact;
   final String phoneNumber;
+  final String volEmail;
   const ContactDialog(
       {required this.name,
       required this.howToContact,
       required this.phoneNumber,
+      required this.volEmail,
       Key? key})
       : super(key: key);
 
@@ -132,18 +135,26 @@ class _ContactDialogState extends State<ContactDialog> {
     String firstText =
         "سلام $firstName، وصلت إليك عن طريق موقع مجالات وأريد من فضلك أن أستشيرك بخصوص مجال دراستك وعملك. أرجو منك إخباري بالوقت المناسب للتواصل. شكرا جزيلا لك!";
 
+    sendWhatsApp() async {
+      Uri url =
+          Uri.parse("https://wa.me/972${widget.phoneNumber}?text=$firstText");
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    }
+
+    sendEmail() async {
+      Email email = Email(
+          body: firstText,
+          subject: "مجالات - مساعدة من فضلك",
+          recipients: [widget.volEmail],
+          isHTML: false);
+      await FlutterEmailSender.send(email);
+    }
+
     return SizedBox(
       height: 50,
       child: ElevatedButton(
         onPressed: () {
-          print(widget.phoneNumber);
-          isWhatsApp
-              ? () async {
-                  Uri url = Uri.parse(
-                      "https://wa.me/972${widget.phoneNumber}?text=$firstText");
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }()
-              : () {};
+          isWhatsApp ? sendWhatsApp() : sendEmail();
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

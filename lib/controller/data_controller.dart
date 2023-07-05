@@ -79,6 +79,7 @@ class DataController extends GetxController {
             profileLink: profileLink,
             howToContact: howToContact,
             phoneNumber: phoneNumber,
+            email: v['email'].toString(),
           );
           volunteersList.add(vc);
         }
