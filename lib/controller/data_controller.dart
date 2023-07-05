@@ -18,7 +18,6 @@ class DataController extends GetxController {
       final uri = Uri.parse(
           "https://script.googleusercontent.com/macros/echo?user_content_key=bmWYgq7fc1-KhKMjX4T6mlQWz-qM13OeJ7DJvq_nGOlhKMZgMIIbRM1pxYqwiknCpBdIRa8Y3b9U4eVtMr2bBPMd91PIySCJOJmA1Yb3SEsKFZqtv3DaNYcMrmhZHmUMWojr9NvTBuBLhyHCd5hHawEWDM8EPhJ2zFOeshOKUcOcj4rbst4RBwHvK2knwHrWgcmbpCasxocYk2KUeg7z6UnbuUjv142WQJ9bV1QhVOA__-sXW75bhT3E3kYt1sMjTVkcu_ZVxVFQ5BTrN9IDYGOIC7gsDTYl01fY5YxzMK_Y4H7_OZILEGMSNSk7-Ltf72FxovwMOQKD-t5WvKpjt9D8AW0jUIFI&lib=MfSIUdNeHWSw9vH6Lawe1aPGWYEKb6JDU");
       final response = await http.get(uri);
-
       if (response.statusCode >= 200 && response.statusCode <= 205) {
         var jsonResponse = jsonDecode(response.body);
         for (var volunteer in jsonResponse) {
@@ -52,6 +51,7 @@ class DataController extends GetxController {
         String photoId = "";
         String profileLink = "";
         String howToContact = "";
+        String? phoneNumber = v['phone'].toString();
         if (firstname != null &&
             lastname != null &&
             bio != null &&
@@ -78,6 +78,7 @@ class DataController extends GetxController {
             photoId: photoId,
             profileLink: profileLink,
             howToContact: howToContact,
+            phoneNumber: phoneNumber,
           );
           volunteersList.add(vc);
         }

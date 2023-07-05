@@ -1,14 +1,19 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactDialog extends StatefulWidget {
   final String name;
   final String howToContact;
+  final String phoneNumber;
   const ContactDialog(
-      {required this.name, required this.howToContact, Key? key})
+      {required this.name,
+      required this.howToContact,
+      required this.phoneNumber,
+      Key? key})
       : super(key: key);
 
   @override
@@ -65,7 +70,7 @@ class _ContactDialogState extends State<ContactDialog> {
               height: 35,
             ),
             GestureDetector(
-              onTap: toggleInformation, // Toggle the visibility
+              onTap: toggleInformation,
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 padding: EdgeInsets.symmetric(horizontal: 11, vertical: 10),
@@ -105,8 +110,7 @@ class _ContactDialogState extends State<ContactDialog> {
             ),
             AnimatedContainer(
                 duration: Duration(milliseconds: 300),
-                height:
-                    showInformation ? 135 : 0, // Set height to 0 when hidden
+                height: showInformation ? 135 : 0,
                 width: MediaQuery.of(context).size.width * 0.91,
                 child: Text(
                     "طاقم ومتطوّعو مجالات هم هنا لمساعدتك. نرجو منك احترام وقتهم وعدم التواصل معهم لأجل أسئلة يمكن العثور على اجاباتها بسهولة عبر بحث بسيط في الانترنت (مثل معدّلات القبول مثلا).",
@@ -125,10 +129,22 @@ class _ContactDialogState extends State<ContactDialog> {
   Widget buildElevatedButton() {
     bool isWhatsApp = widget.howToContact.contains("الوتسأب");
     String firstName = widget.name.split(" ").first;
+    String firstText =
+        "سلام $firstName، وصلت إليك عن طريق موقع مجالات وأريد من فضلك أن أستشيرك بخصوص مجال دراستك وعملك. أرجو منك إخباري بالوقت المناسب للتواصل. شكرا جزيلا لك!";
+
     return SizedBox(
       height: 50,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          print(widget.phoneNumber);
+          isWhatsApp
+              ? () async {
+                  Uri url = Uri.parse(
+                      "https://wa.me/972${widget.phoneNumber}?text=$firstText");
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                }()
+              : () {};
+        },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,

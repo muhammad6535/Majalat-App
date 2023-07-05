@@ -7,7 +7,7 @@ import 'package:majalat_app/widgets/Contact_Button.dart';
 import 'package:majalat_app/widgets/contact_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class VolunteerDialog extends StatefulWidget {
+class VolunteerDialog extends StatelessWidget {
   final String name;
   final String universityName;
   final String majorOfStudy;
@@ -16,6 +16,7 @@ class VolunteerDialog extends StatefulWidget {
   final String photoId;
   final String profileLink;
   final String howToContact;
+  final String phoneNumber;
 
   const VolunteerDialog(
       {super.key,
@@ -26,35 +27,30 @@ class VolunteerDialog extends StatefulWidget {
       required this.summary,
       this.photoId = "",
       this.profileLink = "",
-      required this.howToContact});
+      required this.howToContact,
+      required this.phoneNumber});
 
-  @override
-  State<VolunteerDialog> createState() => _VolunteerDialogState();
-}
-
-class _VolunteerDialogState extends State<VolunteerDialog> {
   @override
   Widget build(BuildContext context) {
-    Color starButtonColor = Colors.white; // Initial button color
     IconData icon = Icons.person;
-    if (widget.profileLink.contains("facebook")) {
+    if (profileLink.contains("facebook")) {
       icon = FontAwesomeIcons.facebook;
     }
-    if (widget.profileLink.contains("linkedin")) {
+    if (profileLink.contains("linkedin")) {
       icon = FontAwesomeIcons.linkedin;
     }
     return SimpleDialog(
       title: Column(
         children: [
           Visibility(
-            visible: widget.photoId == "" ? false : true,
+            visible: photoId == "" ? false : true,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 17, top: 8),
               child: CircleAvatar(
                 radius: 65.0,
                 backgroundColor: Colors.grey.shade400,
                 backgroundImage: NetworkImage(
-                    'https://drive.google.com/uc?export=view&id=${widget.photoId}'),
+                    'https://drive.google.com/uc?export=view&id=$photoId'),
               ),
             ),
           ),
@@ -62,7 +58,7 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.name,
+                name,
                 style: GoogleFonts.almarai(
                     fontSize: 25, fontWeight: FontWeight.bold),
               ),
@@ -84,7 +80,7 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: Text(
-                    "${widget.universityName} - ${widget.majorOfStudy}",
+                    "$universityName - $majorOfStudy",
                     style: GoogleFonts.almarai(
                         color: Colors.grey[700],
                         letterSpacing: 0.5,
@@ -105,7 +101,7 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: Text(
-                    widget.city,
+                    city,
                     style: GoogleFonts.almarai(
                         color: Colors.grey[700],
                         letterSpacing: 0.5,
@@ -120,7 +116,7 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: Text(
-                widget.summary,
+                summary,
                 style: GoogleFonts.almarai(
                     color: Colors.grey[700], letterSpacing: 0.5, height: 1.4),
               ),
@@ -135,14 +131,13 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
                     width: MediaQuery.of(context).size.width * 0.14,
                     height: MediaQuery.of(context).size.height * 0.12,
                     icon: icon,
-                    profileLink: widget.profileLink,
+                    profileLink: profileLink,
                     onPressed: icon == Icons.person
                         ? () {}
                         : () async {
-                            if (!await launchUrl(Uri.parse(widget.profileLink),
+                            if (!await launchUrl(Uri.parse(profileLink),
                                 mode: LaunchMode.externalApplication)) {
-                              throw Exception(
-                                  'Could not launch $widget.profileLink');
+                              throw Exception('Could not launch $profileLink');
                             }
                           },
                   ),
@@ -157,22 +152,19 @@ class _VolunteerDialogState extends State<VolunteerDialog> {
                         builder: (context) => Directionality(
                             textDirection: TextDirection.rtl,
                             child: ContactDialog(
-                              name: widget.name,
-                              howToContact: widget.howToContact,
+                              name: name,
+                              howToContact: howToContact,
+                              phoneNumber: phoneNumber,
                             )),
                       );
                     },
                   ),
                   ContactButton(
-                    color: starButtonColor, // Use the color variable here
+                    color: Colors.white,
                     width: MediaQuery.of(context).size.width * 0.14,
                     height: MediaQuery.of(context).size.height * 0.12,
                     icon: Icons.star_border,
-                    onPressed: () {
-                      setState(() {
-                        starButtonColor = Colors.white;
-                      });
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),
