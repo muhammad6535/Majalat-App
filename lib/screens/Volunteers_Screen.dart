@@ -22,7 +22,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DataController dataController = Get.put(DataController());
+    DataController dataController = Get.find();
     FavoritesController favoritesController = Get.find();
     List volunteersList = dataController.volunteersList;
 
@@ -113,9 +113,9 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
               ),
               Obx(() =>
                   listToShow.isEmpty && VolunteersScreen.isSelected == true
-                      ? showEmptyListMessage()
+                      ? showLoadingIcon()
                       : listToShow.isEmpty
-                          ? showLoadingIcon()
+                          ? showEmptyListMessage()
                           : showVolunteersList(listToShow.obs)),
             ],
           ),
@@ -124,7 +124,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
     );
   }
 
-  Widget showLoadingIcon() {
+  Widget showEmptyListMessage() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.6,
       child: Center(
@@ -136,7 +136,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
     );
   }
 
-  Widget showEmptyListMessage() {
+  Widget showLoadingIcon() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.6,
       child: Center(
