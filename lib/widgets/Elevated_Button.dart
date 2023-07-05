@@ -15,6 +15,7 @@ class ElevatedButtonWidget extends StatelessWidget {
   final BorderRadiusGeometry borderRadius;
   final Size minimumSize;
   final Widget nextScreen;
+  final Color textColor;
 
   void _launchUrl() async {
     if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
@@ -30,28 +31,34 @@ class ElevatedButtonWidget extends StatelessWidget {
       required this.borderRadius,
       required this.minimumSize,
       required this.nextScreen,
-      required this.id})
+      required this.id,
+      required this.textColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        id == 1
-            ? Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => nextScreen),
-              )
-            : _launchUrl();
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(borderRadius: borderRadius),
-        minimumSize: minimumSize,
-      ),
-      child: Text(
-        text,
-        style: GoogleFonts.almarai(fontSize: fontSize),
+    Size size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: 60,
+      width: size.width * 0.81,
+      child: ElevatedButton(
+        onPressed: () {
+          id == 1
+              ? Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => nextScreen),
+                )
+              : _launchUrl();
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(borderRadius: borderRadius),
+          minimumSize: minimumSize,
+        ),
+        child: Text(
+          text,
+          style: GoogleFonts.almarai(fontSize: fontSize, color: textColor),
+        ),
       ),
     );
   }

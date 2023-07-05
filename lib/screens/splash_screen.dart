@@ -1,8 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:majalat_app/screens/Home_Screen.dart';
 
@@ -24,7 +22,7 @@ class SplashScreen extends StatelessWidget {
       body: Container(
         height: size.height,
         width: size.width,
-        color: Colors.blue.shade700,
+        color: Colors.blue.shade600,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
