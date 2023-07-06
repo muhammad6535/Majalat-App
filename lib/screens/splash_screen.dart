@@ -30,6 +30,7 @@ class SplashScreen extends StatelessWidget {
             Image(
               image: AssetImage("assets/majalaat-icon.png"),
               width: size.width * 0.62,
+              height: size.height * 0.25,
               color: Colors.white,
             ),
             SizedBox(
@@ -37,7 +38,8 @@ class SplashScreen extends StatelessWidget {
             ),
             Text(
               "مجالات",
-              style: GoogleFonts.almarai(fontSize: 62, color: Colors.white),
+              style: GoogleFonts.almarai(
+                  fontSize: size.width * 0.15, color: Colors.white),
             ),
           ],
         ),

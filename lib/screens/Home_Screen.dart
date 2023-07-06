@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:majalat_app/screens/volunteers_Screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:majalat_app/widgets/app_bar_widget.dart';
+import 'package:majalat_app/widgets/popup_menu_widget.dart';
 
 import '../controller/data_controller.dart';
 import '../controller/favorites_controller.dart';
@@ -157,7 +157,25 @@ class HomeScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: AppBarWidget(),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image(
+                    image: AssetImage("assets/majalaat-icon.png"),
+                    width: 35,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text('مجالات', style: GoogleFonts.almarai()),
+                ],
+              ),
+              PopUpMenuWidget(currentPage: "home")
+            ],
+          ),
         ),
         body: Container(
           color: Color.fromARGB(183, 238, 242, 242),

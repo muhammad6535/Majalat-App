@@ -7,6 +7,7 @@ import 'package:majalat_app/controller/favorites_controller.dart';
 import 'package:majalat_app/widgets/Custom_Button.dart';
 import 'package:majalat_app/widgets/Search_Input.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:majalat_app/widgets/popup_menu_widget.dart';
 
 class VolunteersScreen extends StatefulWidget {
   const VolunteersScreen({Key? key}) : super(key: key);
@@ -42,7 +43,15 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('المتطوعون', style: GoogleFonts.almarai()),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('المتطوعون', style: GoogleFonts.almarai()),
+              PopUpMenuWidget(
+                currentPage: "volunteers",
+              )
+            ],
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
