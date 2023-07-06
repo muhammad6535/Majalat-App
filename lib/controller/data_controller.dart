@@ -6,14 +6,16 @@ import '../widgets/Volunteer_Card.dart';
 class DataController extends GetxController {
   List volunteers = [].obs;
   RxList<VolunteerCard> volunteersList = <VolunteerCard>[].obs;
+  var helpfulLinks = [].obs;
 
   @override
   void onInit() {
-    fetchData();
+    fetchVolunteers();
+    fetchHelpfulLinks();
     super.onInit();
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchVolunteers() async {
     try {
       final uri = Uri.parse(
           "https://script.googleusercontent.com/macros/echo?user_content_key=bmWYgq7fc1-KhKMjX4T6mlQWz-qM13OeJ7DJvq_nGOlhKMZgMIIbRM1pxYqwiknCpBdIRa8Y3b9U4eVtMr2bBPMd91PIySCJOJmA1Yb3SEsKFZqtv3DaNYcMrmhZHmUMWojr9NvTBuBLhyHCd5hHawEWDM8EPhJ2zFOeshOKUcOcj4rbst4RBwHvK2knwHrWgcmbpCasxocYk2KUeg7z6UnbuUjv142WQJ9bV1QhVOA__-sXW75bhT3E3kYt1sMjTVkcu_ZVxVFQ5BTrN9IDYGOIC7gsDTYl01fY5YxzMK_Y4H7_OZILEGMSNSk7-Ltf72FxovwMOQKD-t5WvKpjt9D8AW0jUIFI&lib=MfSIUdNeHWSw9vH6Lawe1aPGWYEKb6JDU");
@@ -24,6 +26,24 @@ class DataController extends GetxController {
           volunteers.add(volunteer);
         }
         processVolunteers();
+      } else {
+        Exception('Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      Exception('Exception: $e');
+    }
+  }
+
+  Future<void> fetchHelpfulLinks() async {
+    try {
+      final uri = Uri.parse(
+          "https://script.google.com/macros/s/AKfycbwxsIeAByq256rUMcO300BJ5-clapa3oscEpUx5VQS7brxO9uETyFoyBDj98BSDDYE/exec?documentId=1mdCz50w0GuKWxGU9PEuvV-o614aAXksYELF4LCr1PX4&sheetName=useful-links");
+      final response = await http.get(uri);
+      if (response.statusCode >= 200 && response.statusCode <= 205) {
+        var jsonResponse = jsonDecode(response.body);
+        for (var link in jsonResponse) {
+          helpfulLinks.add(link);
+        }
       } else {
         Exception('Error: ${response.statusCode}');
       }

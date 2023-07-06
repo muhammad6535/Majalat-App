@@ -49,13 +49,13 @@ class PopUpMenuWidget extends StatelessWidget {
   handleSelectedOption(String value) {
     switch (value) {
       case '1':
-        if (currentPage != "home") Get.offAll(HomeScreen());
+        if (currentPage != "home") Get.offAll(() => HomeScreen());
         break;
       case '2':
-        if (currentPage != "volunteers") Get.to(VolunteersScreen());
+        if (currentPage != "volunteers") Get.to(() => VolunteersScreen());
         break;
       case '3':
-        if (currentPage != "helpfulLinks") Get.to(HelpfulLinksScreen());
+        if (currentPage != "helpfulLinks") Get.to(() => HelpfulLinksScreen());
 
         break;
       case '4':
