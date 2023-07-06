@@ -18,7 +18,7 @@ class VolunteersScreen extends StatefulWidget {
 
 class _VolunteersScreenState extends State<VolunteersScreen> {
   String? searchQuery;
-  int count = 0;
+  var count = 0.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +26,16 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
     FavoritesController favoritesController = Get.find();
     List volunteersList = dataController.volunteersList;
 
-    List listToShow = [].obs;
+    List listToShow = [];
 
     if (VolunteersScreen.isSelected) {
-      listToShow = volunteersList;
+      listToShow = volunteersList.obs;
     } else {
       listToShow = volunteersList
           .where((volunteer) =>
               favoritesController.favList.contains(volunteer.phoneNumber))
-          .toList();
+          .toList()
+          .obs;
     }
 
     return Directionality(
@@ -90,7 +91,8 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                             volunteer.description
                                 .toLowerCase()
                                 .contains(searchQuery!.toLowerCase()))
-                        .length;
+                        .length
+                        .obs;
                   });
                 },
               ),
@@ -150,7 +152,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
 
   Widget showVolunteersList(var listToShow) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 1,
+      height: MediaQuery.of(context).size.height * 0.68,
       width: double.infinity,
       child: ListView.builder(
         itemCount: listToShow
