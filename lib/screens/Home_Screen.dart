@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, depend_on_referenced_packages, file_names, unused_local_variable
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, depend_on_referenced_packages, file_names, unused_local_variable, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:majalat_app/screens/volunteers_Screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:majalat_app/widgets/app_bar_widget.dart';
 
 import '../controller/data_controller.dart';
 import '../controller/favorites_controller.dart';
@@ -156,19 +157,7 @@ class HomeScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: Row(
-            children: [
-              Image(
-                image: AssetImage("assets/majalaat-icon.png"),
-                width: 35,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Text('مجالات', style: GoogleFonts.almarai()),
-            ],
-          ),
+          title: AppBarWidget(),
         ),
         body: Container(
           color: Color.fromARGB(183, 238, 242, 242),
