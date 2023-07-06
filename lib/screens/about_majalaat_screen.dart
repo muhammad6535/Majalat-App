@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/popup_menu_widget.dart';
 
@@ -62,6 +63,83 @@ class AboutMajalaatScreen extends StatelessWidget {
                   style: GoogleFonts.almarai(fontSize: 17, height: 1.3),
                   // textAlign: TextAlign.center,
                 ),
+                SizedBox(
+                  height: 40,
+                ),
+                Container(
+                    height: 0.8,
+                    width: size.width * 0.7,
+                    color: Colors.grey.shade400),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "ملاحظات:",
+                      style: GoogleFonts.almarai(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 13),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6, right: 8),
+                          child: Icon(Icons.circle, size: 12),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: Text(
+                            'يمكن تعديل معطياتك في أي وقت بعد تسليم النموذج وذلك بالدخول إلى نفس هذا النموذج مستخدما بريدك الالكتروني.\n',
+                            style:
+                                GoogleFonts.almarai(fontSize: 15, height: 1.3),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 13),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6, right: 8),
+                          child: Icon(Icons.circle, size: 12),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: Text(
+                            'لضمان عدم إزعاجكم متطوّعينا الأعزّاء، فإنّ المنظومة تقوم بتحديد عدد الأشخاص الذين يستطيع المقبل على التعليم التواصل معهم في كلّ أسبوع.',
+                            style:
+                                GoogleFonts.almarai(fontSize: 15, height: 1.3),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                lastSection()
               ],
             ),
           ),
@@ -69,4 +147,117 @@ class AboutMajalaatScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget lastSection() {
+  return Column(
+    children: [
+      Row(
+        children: [
+          SizedBox(
+            width: 5,
+          ),
+          Text(
+            "روابط إضافيّة:",
+            style:
+                GoogleFonts.almarai(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 20,
+      ),
+      SizedBox(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 13),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 6, right: 8),
+                child: Icon(Icons.circle, size: 12),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              InkWell(
+                onTap: () async {
+                  var url =
+                      Uri.parse("https://majalaat.com/about/privacy-policy");
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    'سياسة الخصوصيّة',
+                    style: GoogleFonts.almarai(
+                      fontSize: 15,
+                      height: 1.3,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      SizedBox(
+        height: 15,
+      ),
+      SizedBox(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 13),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 6, right: 8),
+                child: Icon(Icons.circle, size: 12),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              InkWell(
+                onTap: () async {
+                  var url =
+                      Uri.parse("https://majalaat.com/about/terms-of-use");
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    'شروط الاستخدام',
+                    style: GoogleFonts.almarai(
+                      fontSize: 15,
+                      height: 1.3,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
 }

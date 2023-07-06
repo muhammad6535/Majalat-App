@@ -56,28 +56,20 @@ class DataController extends GetxController {
     volunteersList.clear();
 
     for (var v in volunteers) {
-      if (v['approved'] != null &&
-          v['approved']!.toString().contains('نعم') &&
-          v['isshow'] != null &&
-          v['isshow'].toString().contains("نعم") &&
-          v['isacceptterms'] != null &&
-          v['isacceptterms'].toString().contains("نعم")) {
-        String? firstname = v['firstname'];
-        String? lastname = v['lastname'];
-        String? bio = v['bio'];
-        String? field = v['field'];
-        String? town = v['town'];
-        String? institute = v['institute'];
+      String? isApproved = v['approved'].toString();
+      String? isShow = v['isshow'].toString();
+      if (isApproved.contains("نعم") && isShow.contains("نعم")) {
+        String? firstname = v['firstname'].toString();
+        String? lastname = v['lastname'].toString();
+        String? bio = v['bio'].toString();
+        String? field = v['field'].toString();
+        String? town = v['town'].toString();
+        String? institute = v['institute'].toString();
         String photoId = "";
         String profileLink = "";
         String howToContact = "";
         String? phoneNumber = v['phone'].toString();
-        if (firstname != null &&
-            lastname != null &&
-            bio != null &&
-            field != null &&
-            town != null &&
-            institute != null) {
+        if (true) {
           if (v['photourl'] != null) {
             photoId = v['photourl'].toString().split("=").last;
           }
