@@ -176,7 +176,10 @@ class HomeScreen extends StatelessWidget {
                   Text('مجالات', style: GoogleFonts.almarai()),
                 ],
               ),
-              PopUpMenuWidget(currentPage: "home")
+              Obx(() => Visibility(
+                    visible: dataController.volunteersList.isNotEmpty,
+                    child: PopUpMenuWidget(currentPage: "home"),
+                  ))
             ],
           ),
         ),
