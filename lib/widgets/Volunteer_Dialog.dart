@@ -118,7 +118,7 @@ class VolunteerDialog extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: Text(
-                summary,
+                summary == "null" ? "" : summary,
                 style: GoogleFonts.almarai(
                     color: Colors.grey[700], letterSpacing: 0.5, height: 1.4),
               ),

@@ -26,9 +26,7 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
     DataController dataController = Get.find();
     FavoritesController favoritesController = Get.find();
     List volunteersList = dataController.volunteersList;
-
     List listToShow = [];
-
     if (VolunteersScreen.isSelected) {
       listToShow = volunteersList.obs;
     } else {
@@ -110,11 +108,13 @@ class _VolunteersScreenState extends State<VolunteersScreen> {
                     searchQuery == null || searchQuery!.isEmpty ? false : true,
                 child: Container(
                   padding: EdgeInsets.only(top: 30),
-                  child: Text(
-                    "عدد نتائج البحث:  $count",
-                    style: GoogleFonts.almarai(
-                      fontSize: 18,
-                      color: Colors.grey[700],
+                  child: Obx(
+                    () => Text(
+                      "عدد نتائج البحث:  $count",
+                      style: GoogleFonts.almarai(
+                        fontSize: 18,
+                        color: Colors.grey[700],
+                      ),
                     ),
                   ),
                 ),

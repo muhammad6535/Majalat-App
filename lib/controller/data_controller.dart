@@ -84,7 +84,7 @@ class DataController extends GetxController {
             name: '$firstname $lastname',
             description: "$field - $institute",
             majodOfStudy: field,
-            summary: bio,
+            summary: bio.isEmpty ? "" : bio,
             city: town,
             universityName: institute,
             photoId: photoId,
