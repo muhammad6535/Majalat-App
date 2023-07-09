@@ -212,30 +212,52 @@ class _HelpfulLinksScreenState extends State<HelpfulLinksScreen> {
                   ),
                   SizedBox(height: 40),
                   SizedBox(height: 5),
-                  DropdownButton<String>(
-                    value: selectedCategory,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedCategory = newValue;
-                        scrollToCategory(selectedCategory!);
-                      });
-                    },
-                    items: categories.map<DropdownMenuItem<String>>(
-                      (var value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                value,
-                                style: GoogleFonts.almarai(),
-                              ),
-                            ],
-                          ),
-                        );
+                  Container(
+                    color: Colors.grey.shade300,
+                    padding: const EdgeInsets.only(left: 15, right: 7),
+                    child: DropdownButton<String>(
+                      value: selectedCategory,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedCategory = newValue;
+                          scrollToCategory(selectedCategory!);
+                        });
                       },
-                    ).toList(),
+                      items: categories.map<DropdownMenuItem<String>>(
+                        (var value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 8.0), // Add left padding
+                                        child: Text(
+                                          value,
+                                          textDirection: TextDirection.rtl,
+                                          style: GoogleFonts.almarai(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ).toList(),
+                      isExpanded: true,
+                      dropdownColor: Colors.white,
+                      elevation: 4,
+                    ),
                   ),
                   SizedBox(height: 15),
                   Form(

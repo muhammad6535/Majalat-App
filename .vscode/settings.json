@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/Projects/Majalat App - Flutter/majalat_app/Majalat App/linux"
+    "cmake.sourceDirectory": "D:/Projects/Majalat App - Flutter/majalat_app/Majalat App/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
