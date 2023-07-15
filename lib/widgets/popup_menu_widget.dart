@@ -7,7 +7,6 @@ import 'package:majalat_app/screens/Home_Screen.dart';
 import 'package:majalat_app/screens/Volunteers_Screen.dart';
 import 'package:majalat_app/screens/about_majalaat_screen.dart';
 import 'package:majalat_app/screens/helpful_links_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PopUpMenuWidget extends StatelessWidget {
   final String currentPage;
@@ -26,7 +25,6 @@ class PopUpMenuWidget extends StatelessWidget {
               option("2", "المتطوّعون"),
               option("3", "روابط مفيدة"),
               option("4", "عن مجالات"),
-              option("5", "تصفح موقع مجالات"),
             ],
         onSelected: (value) {
           handleSelectedOption(value);
@@ -63,16 +61,6 @@ class PopUpMenuWidget extends StatelessWidget {
         break;
       case '4':
         if (currentPage != "about") Get.to(() => AboutMajalaatScreen());
-
-        break;
-      case '5':
-        () async {
-          var url = Uri.parse("https://majalaat.com/");
-          if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-            throw Exception('Could not launch $url');
-          }
-        }();
-
         break;
     }
   }

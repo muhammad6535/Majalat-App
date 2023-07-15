@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:majalat_app/screens/privacy_policy_screen.dart';
+import 'package:majalat_app/screens/terms_of_use_screen.dart';
 import '../widgets/popup_menu_widget.dart';
 
 class AboutMajalaatScreen extends StatelessWidget {
@@ -138,7 +139,7 @@ class AboutMajalaatScreen extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                lastSection()
+                lastSection(context)
               ],
             ),
           ),
@@ -148,7 +149,7 @@ class AboutMajalaatScreen extends StatelessWidget {
   }
 }
 
-Widget lastSection() {
+Widget lastSection(var context) {
   return Column(
     children: [
       Row(
@@ -180,13 +181,12 @@ Widget lastSection() {
                 width: 8,
               ),
               InkWell(
-                onTap: () async {
-                  var url =
-                      Uri.parse("https://majalaat.com/about/privacy-policy");
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PrivacyPolicyScreen()),
+                  );
                 },
                 child: DecoratedBox(
                   decoration: BoxDecoration(
@@ -227,13 +227,11 @@ Widget lastSection() {
                 width: 8,
               ),
               InkWell(
-                onTap: () async {
-                  var url =
-                      Uri.parse("https://majalaat.com/about/terms-of-use");
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TermsOfUseScreen()),
+                  );
                 },
                 child: DecoratedBox(
                   decoration: BoxDecoration(
